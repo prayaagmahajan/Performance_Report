@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="inner-section4">
+
+ <span class="moto"> <strong>Knowledge is power </strong></span><br>
+
+ <span class="bold_text">Vision :</span> <span class="textcolor">To be a pre-eminent educational institution that prepares students from diverse backgrounds for productive careers by providing them with a student-centered, practically focused quality learning experience</span>
+ <!--<br/><span class="bold_text">Mission :</span> <span class="textcolor">Leading students from ground to skies through excellence to articulate identity.</span>-->
+
+
+</div>
+
+<div class="content">
+ <div class="container-fluid">
+ <div class="row">
+ <div class="col-lg-6">
+ <div class="card">
+ <div class="card-header">
+ <h5 class="m-0">Arts</h5>
+ </div>
+ <div class="card-body">
+ <h6 class="card-title">Special title treatment</h6>
+
+ <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+ <a href="#" class="btn btn-primary">Go somewhere</a>
+ </div>
+ </div>
+ <div class="card">
+ <div class="card-header">
+ <h5 class="m-0">Commerce</h5>
+ </div>
+ <div class="card-body">
+ <h6 class="card-title">Special title treatment</h6>
+
+ <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+ <a href="{% url 'commerce'%}" class="btn btn-primary">Go somewhere</a>
+ </div>
+ </div>
+ </div>
+ <!-- /.col-md-6 -->
+ <div class="col-lg-6">
+ <div class="card">
+ <div class="card-header">
+ <h5 class="m-0">Science</h5>
+ </div>
+ <div class="card-body">
+ <h6 class="card-title">Special title treatment</h6>
+
+ <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+ <a href="#" class="btn btn-primary">Go somewhere</a>
+ </div>
+ </div>
+
+ <div class="card">
+ <div class="card-header">
+ <h5 class="m-0">Faculty</h5>
+ </div>
+ <div class="card-body">
+ <h6 class="card-title">Special title treatment</h6>
+
+ <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+ <a href="{% url 'faculty' %}" class="btn btn-primary">Go somewhere</a>
+ </div>
+ </div>
+ </div>
+ <!-- /.col-md-6 -->
+ </div>
+ <!-- /.row -->
+ </div><!-- /.container-fluid -->
+</div>
+<!-- /.content -->
+</div>
+{% endblock body%}

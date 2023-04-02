@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+{% csrf_token %}
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Student Report</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Marks</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for mark in marks %}
+                                <tr>
+                                    <td scope="row">{{ mark.subject.name }}</td>
+                                    <td scope="row">{{ mark.marks }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="2">No marks found.</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.d-flex -->
+
+                        <div class="position-relative mb-4">
+                            <div class="chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                    <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Donut Chart</h3>
+                            <a href="javascript:void(0);">View Report</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- /.d-flex -->
+                        <div class="position-relative mb-4">
+                            <div class="chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                    <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                            <canvas id="marks-chart-donut"></canvas>
+
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                            <script>
+ // Get the data from the Django view
+ var data = {{ data|safe }};
+
+ // Create the chart
+ var ctx = document.getElementById('marks-chart-donut').getContext('2d');
+ if (Object.keys(data).length === 0) {
+ var chart = new Chart(ctx, {
+ type: 'doughnut',
+ data: {
+ labels: ['No data available'],
+ datasets: [{
+ label: 'Marks',
+ data: [100],
+ backgroundColor: ['rgba(128, 128, 128, 0.2)'],
+ borderColor: ['rgba(128, 128, 128, 1)'],
+ borderWidth: 1
+ }]
+ },
+ options: {
+ responsive: true,
+ legend: {
+ position: 'right'
+ },
+ title: {
+ display: true,
+ text: 'Student Marks'
+ },
+ animation: {
+ animateScale: true,
+ animateRotate: true
+ },
+ cutoutPercentage: 50
+ }
+ });
+ } else {
+ var chart = new Chart(ctx, {
+ type: 'doughnut',
+ data: {
+ labels: Object.keys(data),
+ datasets: [{
+ label: 'Marks',
+ data: Object.values(data),
+ backgroundColor: [
+ 'rgba(255, 99, 132, 0.2)',
+ 'rgba(54, 162, 235, 0.2)',
+ 'rgba(255, 206, 86, 0.2)',
+ 'rgba(75, 192, 192, 0.2)',
+ 'rgba(153, 102, 255, 0.2)',
+ 'rgba(255, 159, 64, 0.2)'
+ ],
+ borderColor: [
+ 'rgba(255, 99, 132, 1)',
+ 'rgba(54, 162, 235, 1)',
+ 'rgba(255, 206, 86, 1)',
+ 'rgba(75, 192, 192, 1)',
+ 'rgba(153, 102, 255, 1)',
+ 'rgba(255, 159, 64, 1)'
+ ],
+ borderWidth: 1
+ }]
+ },
+ options: {
+ responsive: true,
+ legend: {
+ position: 'right'
+ },
+ title: {
+ display: true,
+ text: 'Student Marks'
+ },
+ animation: {
+ animateScale: true,
+ animateRotate: true
+ },
+ cutoutPercentage: 50
+ }
+ });
+ }
+
+                            </script>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- next card starts for statistics and matrics-->
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Chart</h3>
+                            <a href="javascript:void(0);">View Report</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- /.d-flex -->
+                        <div class="position-relative mb-4">
+                            <div class="chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                    <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                    <div class=""></div>
+                                </div>
+                            </div>
+                            <canvas id="marks-chart"></canvas>
+
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                            <script>
+ // Get the data from the Django view
+ var data = {{ data|safe }};
+
+ // Create the chart
+ var ctx = document.getElementById('marks-chart').getContext('2d');
+ var chart = new Chart(ctx, {
+ type: 'bar',
+ data: {
+ labels: Object.keys(data),
+ datasets: [{
+ label: 'Marks',
+ data: Object.values(data),
+ backgroundColor: 'rgba(54, 162, 235, 0.2)',
+ borderColor: 'rgba(54, 162, 235, 1)',
+ borderWidth: 1
+ }]
+ },
+ options: {
+ scales: {
+ yAxes: [{
+ ticks: {
+ beginAtZero: true
+ }
+ }]
+ }
+ }
+ });
+
+
+
+
+
+
+
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+
+                <div class="card">
+                    <div class="card-header border-0">
+                        <h3 class="card-title">Student Info:</h3>
+                        <div class="card-tools">
+                            <a href="#" class="btn btn-sm btn-tool">
+                                <i class="fas fa-download"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-tool">
+                                <i class="fas fa-bars"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col"> High Scored</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in max_sub %}
+                                    <tr>
+                                        <td scope="row">{{ i }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="2">No marks found.</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col"> lowest Scored</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in min_sub %}
+                                    <tr>
+                                        <td scope="row">{{ i }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="2">No marks found.</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col"> Failed sub</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for i in failed_sub %}
+                                    <tr>
+                                        <td scope="row">{{ i }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="2">No marks found.</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+
+
+{% endblock body %}
